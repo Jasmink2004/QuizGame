@@ -1,0 +1,27 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Choose a Genre";
+    // Map genres to image filenames
+    var genreImages = new Dictionary<string, string>
+    {
+        { "General Knowledge", "general.jpeg" },
+        { "Movies", "movies.jpeg" },
+        { "Sports", "sports.jpeg" }
+        // Add more as needed
+    };
+}
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    @foreach (var genre in Model)
+    {
+        <div class="col-md-4 text-center mb-4">
+            <form asp-action="Start" method="post">
+                <input type="hidden" name="genre" value="@genre" />
+                <button type="submit" class="btn btn-light" style="border:none;">
+                    <img src="~/images/@genreImages[genre]" alt="@genre" class="img-fluid rounded shadow" style="height:180px;object-fit:cover;" />
+                    <div class="mt-2 h5">@genre</div>
+                </button>
+            </form>
+        </div>
+    }
+</div>

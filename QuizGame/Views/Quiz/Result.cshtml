@@ -1,0 +1,29 @@
+﻿@model QuizGame.Models.QuizViewModel
+@{
+    ViewData["Title"] = "Quiz Results";
+}
+<h2>@ViewData["Title"]</h2>
+<div class="card">
+    <div class="card-body">
+        <h4>Your Score: @Model.Score / @Model.Questions.Count</h4>
+        <p>Correct Answers: @Model.Score</p>
+        <p>Incorrect Answers: @(Model.Questions.Count - Model.Score)</p>
+        <hr />
+        <h5>Question Review:</h5>
+        <ul>
+            @for (int i = 0; i < Model.Questions.Count; i++)
+            {
+                var q = Model.Questions[i];
+                var userAnswer = Model.UserAnswers[i];
+                <li>
+                    <strong>@q.Question</strong><br />
+                    Your answer: <span style="color:@(userAnswer == q.CorrectOption ? "green" : "red")">
+                        @q.Options[userAnswer]
+                    </span><br />
+                    Correct answer: <span style="color:green">@q.Options[q.CorrectOption]</span>
+                </li>
+            }
+        </ul>
+        <a href="/Quiz/Index" class="btn btn-primary mt-3">Try Another Quiz</a>
+    </div>
+</div>

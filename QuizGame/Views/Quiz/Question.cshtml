@@ -1,0 +1,23 @@
+﻿@model QuizGame.Models.QuizViewModel
+@{
+    ViewData["Title"] = "Quiz";
+    var q = Model.Questions[Model.CurrentQuestionIndex];
+}
+<h2>@Model.Genre Quiz</h2>
+<div class="card mb-3">
+    <div class="card-body">
+        <h4>Question @(Model.CurrentQuestionIndex + 1) of @Model.Questions.Count</h4>
+        <p>@q.Question</p>
+        <form asp-action="Answer" method="post">
+            @for (int i = 0; i < q.Options.Count; i++)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="selectedOption" value="@i" id="option@i" required>
+                    <label class="form-check-label" for="option@i">@q.Options[i]</label>
+                </div>
+            }
+            <button type="submit" class="btn btn-success mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+<p>Score: @Model.Score</p>
